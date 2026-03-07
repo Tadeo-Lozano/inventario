@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BalataController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\TarimaController;
 use App\Http\Controllers\TallerController;
 use App\Http\Controllers\VentaController;
@@ -22,6 +23,9 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/media/{path}', [MediaController::class, 'show'])
+        ->where('path', '.*')
+        ->name('media.show');
 
     Route::get('/balatas/catalogo', [BalataController::class, 'catalogo'])->name('balatas.catalogo');
     Route::get('/balatas/exportar-pdf', [BalataController::class, 'exportPdf'])->name('balatas.export.pdf');

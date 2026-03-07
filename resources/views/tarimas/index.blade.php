@@ -36,7 +36,7 @@
     <div class="d-md-none">
         @forelse ($tarimas as $tarima)
             @php
-                $galeriaTarima = $tarima->imagenes->map(fn ($imagen) => asset('storage/'.$imagen->ruta))->values();
+                $galeriaTarima = $tarima->imagenes->map(fn ($imagen) => route('media.show', ['path' => $imagen->ruta]))->values();
                 $balatasTarima = $tarima->balatas->map(fn ($balata) => [
                     'codigo' => $balata->codigo,
                     'marca' => $balata->marca,
@@ -46,7 +46,7 @@
                     'precio_venta' => (float) $balata->precio_venta,
                 ])->values();
                 if ($galeriaTarima->isEmpty() && $tarima->foto) {
-                    $galeriaTarima = collect([asset('storage/'.$tarima->foto)]);
+                    $galeriaTarima = collect([route('media.show', ['path' => $tarima->foto])]);
                 }
             @endphp
             <div class="mobile-card shadow-sm p-3 mb-3">
@@ -116,7 +116,7 @@
                 <tbody>
                 @forelse ($tarimas as $tarima)
                     @php
-                        $galeriaTarima = $tarima->imagenes->map(fn ($imagen) => asset('storage/'.$imagen->ruta))->values();
+                        $galeriaTarima = $tarima->imagenes->map(fn ($imagen) => route('media.show', ['path' => $imagen->ruta]))->values();
                         $balatasTarima = $tarima->balatas->map(fn ($balata) => [
                             'codigo' => $balata->codigo,
                             'marca' => $balata->marca,
@@ -126,7 +126,7 @@
                             'precio_venta' => (float) $balata->precio_venta,
                         ])->values();
                         if ($galeriaTarima->isEmpty() && $tarima->foto) {
-                            $galeriaTarima = collect([asset('storage/'.$tarima->foto)]);
+                            $galeriaTarima = collect([route('media.show', ['path' => $tarima->foto])]);
                         }
                     @endphp
                     <tr>

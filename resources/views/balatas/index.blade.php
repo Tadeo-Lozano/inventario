@@ -45,7 +45,7 @@
     <div class="d-md-none">
         @forelse ($balatas as $balata)
             @php
-                $galeriaBalata = $balata->imagenes->map(fn ($imagen) => asset('storage/'.$imagen->ruta))->values();
+                $galeriaBalata = $balata->imagenes->map(fn ($imagen) => route('media.show', ['path' => $imagen->ruta]))->values();
             @endphp
             <div class="mobile-card shadow-sm p-3 mb-3">
                 <div class="d-flex justify-content-between align-items-start gap-2">
@@ -155,7 +155,7 @@
                 <tbody>
                 @forelse ($balatas as $balata)
                     @php
-                        $galeriaBalata = $balata->imagenes->map(fn ($imagen) => asset('storage/'.$imagen->ruta))->values();
+                        $galeriaBalata = $balata->imagenes->map(fn ($imagen) => route('media.show', ['path' => $imagen->ruta]))->values();
                     @endphp
                     <tr>
                         <td class="fw-semibold">{{ $balata->codigo }}</td>

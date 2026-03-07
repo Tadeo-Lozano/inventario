@@ -65,7 +65,7 @@
             <div class="d-flex flex-wrap gap-3">
                 @foreach ($balata->imagenes as $imagen)
                     <label class="border rounded p-2 text-center">
-                        <img src="{{ asset('storage/'.$imagen->ruta) }}" alt="Imagen de balata" class="thumb d-block mb-2">
+                        <img src="{{ route('media.show', ['path' => $imagen->ruta]) }}" alt="Imagen de balata" class="thumb d-block mb-2">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="{{ $imagen->id }}" name="eliminar_imagenes[]" id="eliminar_{{ $imagen->id }}">
                             <label class="form-check-label small" for="eliminar_{{ $imagen->id }}">
