@@ -21,6 +21,10 @@ class TallerController extends Controller
                 $query->where(function ($subQuery) use ($search) {
                     $subQuery->where('nombre', 'like', "%{$search}%")
                         ->orWhere('ubicacion', 'like', "%{$search}%")
+                        ->orWhere('calle', 'like', "%{$search}%")
+                        ->orWhere('colonia', 'like', "%{$search}%")
+                        ->orWhere('numero', 'like', "%{$search}%")
+                        ->orWhere('telefono', 'like', "%{$search}%")
                         ->orWhereHas('balatas', function ($balataQuery) use ($search) {
                             $balataQuery->where('codigo', 'like', "%{$search}%")
                                 ->orWhere('calidad', 'like', "%{$search}%");
@@ -50,14 +54,26 @@ class TallerController extends Controller
     {
         $validated = $request->validate([
             'nombre' => ['required', 'string', 'max:120'],
-            'ubicacion' => ['required', 'string', 'max:255'],
+            'calle' => ['required', 'string', 'max:150'],
+            'colonia' => ['required', 'string', 'max:150'],
+            'numero' => ['required', 'string', 'max:30'],
+            'telefono' => ['required', 'string', 'max:30'],
             'balatas' => ['nullable', 'array'],
             'balatas.*' => ['integer', 'exists:balatas,id'],
         ]);
 
         $taller = Taller::create([
             'nombre' => trim($validated['nombre']),
-            'ubicacion' => trim($validated['ubicacion']),
+            'calle' => trim($validated['calle']),
+            'colonia' => trim($validated['colonia']),
+            'numero' => trim($validated['numero']),
+            'telefono' => trim($validated['telefono']),
+            'ubicacion' => trim(sprintf(
+                '%s, %s, %s',
+                $validated['calle'],
+                $validated['colonia'],
+                $validated['numero']
+            )),
         ]);
 
         $taller->balatas()->sync($validated['balatas'] ?? []);
@@ -87,14 +103,26 @@ class TallerController extends Controller
     {
         $validated = $request->validate([
             'nombre' => ['required', 'string', 'max:120'],
-            'ubicacion' => ['required', 'string', 'max:255'],
+            'calle' => ['required', 'string', 'max:150'],
+            'colonia' => ['required', 'string', 'max:150'],
+            'numero' => ['required', 'string', 'max:30'],
+            'telefono' => ['required', 'string', 'max:30'],
             'balatas' => ['nullable', 'array'],
             'balatas.*' => ['integer', 'exists:balatas,id'],
         ]);
 
         $tallere->update([
             'nombre' => trim($validated['nombre']),
-            'ubicacion' => trim($validated['ubicacion']),
+            'calle' => trim($validated['calle']),
+            'colonia' => trim($validated['colonia']),
+            'numero' => trim($validated['numero']),
+            'telefono' => trim($validated['telefono']),
+            'ubicacion' => trim(sprintf(
+                '%s, %s, %s',
+                $validated['calle'],
+                $validated['colonia'],
+                $validated['numero']
+            )),
         ]);
 
         $tallere->balatas()->sync($validated['balatas'] ?? []);

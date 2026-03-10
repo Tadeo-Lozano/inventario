@@ -18,7 +18,7 @@
                             name="search"
                             value="{{ $search }}"
                             class="form-control"
-                            placeholder="Buscar taller por nombre, ubicacion o balata de interes"
+                            placeholder="Buscar taller por nombre, calle, colonia, numero, telefono o balata de interes"
                         >
                     </div>
                     <div class="col-6 col-md-auto">
@@ -35,14 +35,23 @@
 
     <div class="d-md-none">
         @forelse ($talleres as $taller)
+            @php
+                $direccion = collect([$taller->calle, $taller->colonia, $taller->numero])
+                    ->filter(fn ($valor) => filled($valor))
+                    ->join(', ');
+            @endphp
             <div class="mobile-card shadow-sm p-3 mb-3">
                 <div>
                     <div class="label">Nombre</div>
                     <div class="value fw-semibold">{{ $taller->nombre }}</div>
                 </div>
                 <div class="mt-2">
-                    <div class="label">Ubicacion</div>
-                    <div class="value">{{ $taller->ubicacion }}</div>
+                    <div class="label">Direccion</div>
+                    <div class="value">{{ $direccion !== '' ? $direccion : 'N/A' }}</div>
+                </div>
+                <div class="mt-2">
+                    <div class="label">Telefono</div>
+                    <div class="value">{{ $taller->telefono ?: 'N/A' }}</div>
                 </div>
                 <div class="mt-2">
                     <div class="label">Balatas de interes</div>
@@ -76,16 +85,23 @@
                 <thead class="table-light">
                 <tr>
                     <th>Nombre</th>
-                    <th>Ubicacion</th>
+                    <th>Direccion</th>
+                    <th>Telefono</th>
                     <th>Balatas de interes</th>
                     <th class="text-end">Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
                 @forelse ($talleres as $taller)
+                    @php
+                        $direccion = collect([$taller->calle, $taller->colonia, $taller->numero])
+                            ->filter(fn ($valor) => filled($valor))
+                            ->join(', ');
+                    @endphp
                     <tr>
                         <td class="fw-semibold">{{ $taller->nombre }}</td>
-                        <td>{{ $taller->ubicacion }}</td>
+                        <td>{{ $direccion !== '' ? $direccion : 'N/A' }}</td>
+                        <td>{{ $taller->telefono ?: 'N/A' }}</td>
                         <td>
                             @if ($taller->balatas->isEmpty())
                                 <span class="text-muted small">Sin balatas asignadas</span>
@@ -106,7 +122,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center py-4 text-muted">
+                        <td colspan="5" class="text-center py-4 text-muted">
                             No hay talleres registrados.
                         </td>
                     </tr>

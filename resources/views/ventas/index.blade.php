@@ -71,7 +71,7 @@
         <div class="col-6 col-lg-3">
             <div class="card shadow-sm h-100 border-success-subtle">
                 <div class="card-body">
-                    <div class="small text-muted">Ganado (utilidad)</div>
+                    <div class="small text-muted">Utilidad</div>
                     <div class="h5 mb-0 text-success">${{ number_format($totales['utilidad'], 2) }}</div>
                 </div>
             </div>

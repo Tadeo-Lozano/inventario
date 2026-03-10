@@ -12,6 +12,10 @@ class Taller extends Model
     protected $fillable = [
         'nombre',
         'ubicacion',
+        'calle',
+        'colonia',
+        'numero',
+        'telefono',
     ];
 
     public function balatas(): BelongsToMany

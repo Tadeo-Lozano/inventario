@@ -6,12 +6,24 @@
 
 <div class="row g-3">
     <div class="col-md-6">
-        <label for="nombre" class="form-label">Nombre del taller</label>
+        <label for="nombre" class="form-label">Nombre del taller o encargado</label>
         <input type="text" class="form-control" id="nombre" name="nombre" value="{{ old('nombre', $taller?->nombre) }}" required>
     </div>
     <div class="col-md-6">
-        <label for="ubicacion" class="form-label">Ubicacion</label>
-        <input type="text" class="form-control" id="ubicacion" name="ubicacion" value="{{ old('ubicacion', $taller?->ubicacion) }}" required>
+        <label for="telefono" class="form-label">Numero de telefono</label>
+        <input type="text" class="form-control" id="telefono" name="telefono" value="{{ old('telefono', $taller?->telefono) }}" required>
+    </div>
+    <div class="col-md-4">
+        <label for="calle" class="form-label">Calle</label>
+        <input type="text" class="form-control" id="calle" name="calle" value="{{ old('calle', $taller?->calle) }}" required>
+    </div>
+    <div class="col-md-4">
+        <label for="colonia" class="form-label">Colonia</label>
+        <input type="text" class="form-control" id="colonia" name="colonia" value="{{ old('colonia', $taller?->colonia) }}" required>
+    </div>
+    <div class="col-md-4">
+        <label for="numero" class="form-label">Numero</label>
+        <input type="text" class="form-control" id="numero" name="numero" value="{{ old('numero', $taller?->numero) }}" required>
     </div>
     <div class="col-12">
         <label class="form-label">Balatas de interes</label>
