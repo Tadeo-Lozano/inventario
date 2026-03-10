@@ -14,6 +14,7 @@ class Balata extends Model
         'codigo',
         'marca',
         'calidad',
+        'posicion',
         'vehiculos',
         'cantidad',
         'precio_inventario',

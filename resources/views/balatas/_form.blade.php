@@ -1,6 +1,8 @@
 @php
     /** @var \App\Models\Balata|null $balata */
     $balata = $balata ?? null;
+    $opcionesCalidad = ['Estandar', 'Premium', 'Ceramica'];
+    $opcionesPosicion = ['Delantera', 'Trasera'];
 @endphp
 
 <div class="row g-3">
@@ -14,7 +16,25 @@
     </div>
     <div class="col-md-3">
         <label for="calidad" class="form-label">Calidad</label>
-        <input type="text" class="form-control" id="calidad" name="calidad" value="{{ old('calidad', $balata?->calidad) }}" placeholder="Ej: Estandar, Premium, Ceramica" required>
+        <select class="form-select" id="calidad" name="calidad" required>
+            <option value="">Selecciona una calidad</option>
+            @foreach ($opcionesCalidad as $opcionCalidad)
+                <option value="{{ $opcionCalidad }}" @selected(old('calidad', $balata?->calidad) === $opcionCalidad)>
+                    {{ $opcionCalidad }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label for="posicion" class="form-label">Posicion</label>
+        <select class="form-select" id="posicion" name="posicion" required>
+            <option value="">Selecciona una posicion</option>
+            @foreach ($opcionesPosicion as $opcionPosicion)
+                <option value="{{ $opcionPosicion }}" @selected(old('posicion', $balata?->posicion) === $opcionPosicion)>
+                    {{ $opcionPosicion }}
+                </option>
+            @endforeach
+        </select>
     </div>
     <div class="col-md-3">
         <label for="tarima_id" class="form-label">Tarima</label>
@@ -27,15 +47,15 @@
             @endforeach
         </select>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <label for="cantidad" class="form-label">Cantidad</label>
         <input type="number" class="form-control" id="cantidad" name="cantidad" value="{{ old('cantidad', $balata?->cantidad) }}" min="0" required>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <label for="precio_inventario" class="form-label">Precio inventario</label>
         <input type="number" class="form-control" id="precio_inventario" name="precio_inventario" value="{{ old('precio_inventario', $balata?->precio_inventario) }}" min="0" step="0.01" required>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <label for="precio_venta" class="form-label">Precio venta</label>
         <input type="number" class="form-control" id="precio_venta" name="precio_venta" value="{{ old('precio_venta', $balata?->precio_venta) }}" min="0" step="0.01" required>
     </div>

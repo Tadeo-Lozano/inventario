@@ -68,10 +68,14 @@ class BalataController extends Controller
      */
     public function store(Request $request)
     {
+        $opcionesCalidad = ['Estandar', 'Premium', 'Ceramica'];
+        $opcionesPosicion = ['Delantera', 'Trasera'];
+
         $validated = $request->validate([
             'codigo' => ['required', 'string', 'max:80', 'unique:balatas,codigo'],
             'marca' => ['required', 'string', 'max:80'],
-            'calidad' => ['required', 'string', 'max:80'],
+            'calidad' => ['required', Rule::in($opcionesCalidad)],
+            'posicion' => ['required', Rule::in($opcionesPosicion)],
             'vehiculos' => ['required', 'string'],
             'cantidad' => ['required', 'integer', 'min:0'],
             'precio_inventario' => ['required', 'numeric', 'min:0'],
@@ -85,6 +89,7 @@ class BalataController extends Controller
             'codigo' => $validated['codigo'],
             'marca' => $validated['marca'],
             'calidad' => $validated['calidad'],
+            'posicion' => $validated['posicion'],
             'vehiculos' => trim($validated['vehiculos']),
             'cantidad' => $validated['cantidad'],
             'precio_inventario' => $validated['precio_inventario'],
@@ -119,10 +124,14 @@ class BalataController extends Controller
      */
     public function update(Request $request, Balata $balata)
     {
+        $opcionesCalidad = ['Estandar', 'Premium', 'Ceramica'];
+        $opcionesPosicion = ['Delantera', 'Trasera'];
+
         $validated = $request->validate([
             'codigo' => ['required', 'string', 'max:80', Rule::unique('balatas', 'codigo')->ignore($balata->id)],
             'marca' => ['required', 'string', 'max:80'],
-            'calidad' => ['required', 'string', 'max:80'],
+            'calidad' => ['required', Rule::in($opcionesCalidad)],
+            'posicion' => ['required', Rule::in($opcionesPosicion)],
             'vehiculos' => ['required', 'string'],
             'cantidad' => ['required', 'integer', 'min:0'],
             'precio_inventario' => ['required', 'numeric', 'min:0'],
@@ -138,6 +147,7 @@ class BalataController extends Controller
             'codigo' => $validated['codigo'],
             'marca' => $validated['marca'],
             'calidad' => $validated['calidad'],
+            'posicion' => $validated['posicion'],
             'vehiculos' => trim($validated['vehiculos']),
             'cantidad' => $validated['cantidad'],
             'precio_inventario' => $validated['precio_inventario'],
@@ -193,6 +203,7 @@ class BalataController extends Controller
                     $subQuery->where('codigo', 'like', "%{$search}%")
                         ->orWhere('marca', 'like', "%{$search}%")
                         ->orWhere('calidad', 'like', "%{$search}%")
+                        ->orWhere('posicion', 'like', "%{$search}%")
                         ->orWhere('vehiculos', 'like', "%{$search}%")
                         ->orWhereHas('tarima', function (Builder $tarimaQuery) use ($search) {
                             $tarimaQuery->where('numero_identificacion', 'like', "%{$search}%");

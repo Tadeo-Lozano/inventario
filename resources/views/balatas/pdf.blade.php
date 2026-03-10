@@ -75,6 +75,7 @@
                 <th>Codigo</th>
                 <th>Marca</th>
                 <th>Calidad</th>
+                <th>Posicion</th>
                 <th>Vehiculos</th>
                 <th class="text-end">Cantidad</th>
                 <th class="text-end">Precio inventario</th>
@@ -89,6 +90,7 @@
                     <td>{{ $balata->codigo }}</td>
                     <td>{{ $balata->marca }}</td>
                     <td>{{ $balata->calidad }}</td>
+                    <td>{{ $balata->posicion }}</td>
                     <td>{{ str_replace(["\r\n", "\r", "\n"], ', ', $balata->vehiculos) }}</td>
                     <td class="text-end">{{ number_format($balata->cantidad) }}</td>
                     <td class="text-end">${{ number_format((float) $balata->precio_inventario, 2) }}</td>
@@ -98,7 +100,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="9" class="small">No hay balatas para exportar con el filtro actual.</td>
+                    <td colspan="10" class="small">No hay balatas para exportar con el filtro actual.</td>
                 </tr>
             @endforelse
         </tbody>

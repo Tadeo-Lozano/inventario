@@ -67,11 +67,11 @@
             @auth
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('balatas.index') || request()->routeIs('balatas.create') || request()->routeIs('balatas.edit') ? 'active' : '' }}" href="{{ route('balatas.index') }}">Balatas</a>
+                        <a class="nav-link {{ request()->routeIs('balatas.index') || request()->routeIs('balatas.create') || request()->routeIs('balatas.edit') ? 'active' : '' }}" href="{{ route('balatas.index') }}">Gestión de Balatas</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('balatas.catalogo') ? 'active' : '' }}" href="{{ route('balatas.catalogo') }}">Catalogo</a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('ventas.*') ? 'active' : '' }}" href="{{ route('ventas.index') }}">Ventas</a>
                     </li>

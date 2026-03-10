@@ -27,7 +27,7 @@
                             name="search"
                             value="{{ $search }}"
                             class="form-control"
-                            placeholder="Buscar articulo por codigo, marca, calidad, vehiculo, tarima o taller"
+                            placeholder="Buscar articulo por codigo, marca, calidad, posicion, vehiculo, tarima o taller"
                         >
                     </div>
                     <div class="col-6 col-md-auto">
@@ -67,6 +67,10 @@
                     <div class="col-6">
                         <div class="label">Calidad</div>
                         <div class="value">{{ $balata->calidad }}</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="label">Posicion</div>
+                        <div class="value">{{ $balata->posicion }}</div>
                     </div>
                     <div class="col-6">
                         <div class="label">Cantidad</div>
@@ -142,6 +146,7 @@
                     <th>Codigo</th>
                     <th>Marca</th>
                     <th>Calidad</th>
+                    <th>Posicion</th>
                     <th>Vehiculos</th>
                     <th class="text-end">Cantidad</th>
                     <th class="text-end">Precio inventario</th>
@@ -161,6 +166,7 @@
                         <td class="fw-semibold">{{ $balata->codigo }}</td>
                         <td>{{ $balata->marca }}</td>
                         <td>{{ $balata->calidad }}</td>
+                        <td>{{ $balata->posicion }}</td>
                         <td style="min-width: 240px;">{!! nl2br(e($balata->vehiculos)) !!}</td>
                         <td class="text-end">{{ number_format($balata->cantidad) }}</td>
                         <td class="text-end">${{ number_format((float) $balata->precio_inventario, 2) }}</td>
@@ -204,7 +210,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="11" class="text-center py-4 text-muted">
+                        <td colspan="12" class="text-center py-4 text-muted">
                             No hay balatas registradas.
                         </td>
                     </tr>
