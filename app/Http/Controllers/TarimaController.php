@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tarima;
+use App\Support\MediaStorage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class TarimaController extends Controller
@@ -73,7 +73,7 @@ class TarimaController extends Controller
 
         if ($request->hasFile('imagenes')) {
             foreach ($request->file('imagenes') as $imagen) {
-                $ruta = $imagen->store('tarimas', 'public');
+                $ruta = $imagen->store('tarimas', ['disk' => MediaStorage::diskName()]);
                 $tarima->imagenes()->create(['ruta' => $ruta]);
             }
         }
@@ -116,14 +116,14 @@ class TarimaController extends Controller
                 ->get();
 
             foreach ($imagenes as $imagen) {
-                Storage::disk('public')->delete($imagen->ruta);
+                MediaStorage::disk()->delete($imagen->ruta);
                 $imagen->delete();
             }
         }
 
         if ($request->hasFile('imagenes')) {
             foreach ($request->file('imagenes') as $imagen) {
-                $ruta = $imagen->store('tarimas', 'public');
+                $ruta = $imagen->store('tarimas', ['disk' => MediaStorage::diskName()]);
                 $tarima->imagenes()->create(['ruta' => $ruta]);
             }
         }
@@ -147,11 +147,11 @@ class TarimaController extends Controller
         $tarima->load('imagenes');
 
         foreach ($tarima->imagenes as $imagen) {
-            Storage::disk('public')->delete($imagen->ruta);
+            MediaStorage::disk()->delete($imagen->ruta);
         }
 
         if ($tarima->foto) {
-            Storage::disk('public')->delete($tarima->foto);
+            MediaStorage::disk()->delete($tarima->foto);
         }
 
         $tarima->delete();

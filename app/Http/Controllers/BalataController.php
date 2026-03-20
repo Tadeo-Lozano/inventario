@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Balata;
 use App\Models\Tarima;
+use App\Support\MediaStorage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class BalataController extends Controller
@@ -99,7 +99,7 @@ class BalataController extends Controller
 
         if ($request->hasFile('imagenes')) {
             foreach ($request->file('imagenes') as $imagen) {
-                $ruta = $imagen->store('balatas', 'public');
+                $ruta = $imagen->store('balatas', ['disk' => MediaStorage::diskName()]);
                 $balata->imagenes()->create(['ruta' => $ruta]);
             }
         }
@@ -161,14 +161,14 @@ class BalataController extends Controller
                 ->get();
 
             foreach ($imagenes as $imagen) {
-                Storage::disk('public')->delete($imagen->ruta);
+                MediaStorage::disk()->delete($imagen->ruta);
                 $imagen->delete();
             }
         }
 
         if ($request->hasFile('imagenes')) {
             foreach ($request->file('imagenes') as $imagen) {
-                $ruta = $imagen->store('balatas', 'public');
+                $ruta = $imagen->store('balatas', ['disk' => MediaStorage::diskName()]);
                 $balata->imagenes()->create(['ruta' => $ruta]);
             }
         }
@@ -185,7 +185,7 @@ class BalataController extends Controller
         $balata->load('imagenes');
 
         foreach ($balata->imagenes as $imagen) {
-            Storage::disk('public')->delete($imagen->ruta);
+            MediaStorage::disk()->delete($imagen->ruta);
         }
 
         $balata->delete();

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Storage;
+use App\Support\MediaStorage;
 
 class MediaController extends Controller
 {
@@ -12,7 +12,7 @@ class MediaController extends Controller
             abort(404);
         }
 
-        $disk = Storage::disk('public');
+        $disk = MediaStorage::disk();
 
         if (! $disk->exists($path)) {
             abort(404);

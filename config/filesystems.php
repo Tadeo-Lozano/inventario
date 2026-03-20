@@ -17,6 +17,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Media Filesystem Disk
+    |--------------------------------------------------------------------------
+    |
+    | Uploaded images use this disk so production can point them to S3 while
+    | local development keeps the existing public storage behavior.
+    |
+    */
+
+    'media_disk' => env(
+        'MEDIA_DISK',
+        env('FILESYSTEM_DISK') === 'local' ? 'public' : env('FILESYSTEM_DISK', 'public')
+    ),
+
+    /*
+    |--------------------------------------------------------------------------
     | Filesystem Disks
     |--------------------------------------------------------------------------
     |
